@@ -35034,7 +35034,7 @@
       ],
       "properties": {
         "name": {
-          "description": "The header field name",
+          "description": "The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.",
           "type": "string",
           "default": ""
         },
@@ -38622,7 +38622,7 @@
       ],
       "properties": {
         "localhostProfile": {
-          "description": "localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is \"Localhost\".",
+          "description": "localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is \"Localhost\". Must NOT be set for any other type.",
           "type": "string"
         },
         "type": {
@@ -39174,7 +39174,7 @@
           "type": "string"
         },
         "loadBalancerIP": {
-          "description": "Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.",
+          "description": "Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations. Using it is non-portable and it may not support dual-stack. Users are encouraged to use implementation-specific annotations when available.",
           "type": "string"
         },
         "loadBalancerSourceRanges": {
@@ -39978,7 +39978,7 @@
           "type": "string"
         },
         "hostProcess": {
-          "description": "HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.",
+          "description": "HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.",
           "type": "boolean"
         },
         "runAsUserName": {
@@ -40053,7 +40053,7 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
         },
         "roleRef": {
-          "description": "RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.",
+          "description": "RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.",
           "default": {},
           "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleRef"
         },
@@ -40224,7 +40224,7 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
         },
         "roleRef": {
-          "description": "RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.",
+          "description": "RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.",
           "default": {},
           "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleRef"
         },
@@ -40927,9 +40927,7 @@
         "key": {
           "description": "key is the label key that the selector applies to.",
           "type": "string",
-          "default": "",
-          "x-kubernetes-patch-merge-key": "key",
-          "x-kubernetes-patch-strategy": "merge"
+          "default": ""
         },
         "operator": {
           "description": "operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.",

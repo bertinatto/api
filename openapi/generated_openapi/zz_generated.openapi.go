@@ -59420,7 +59420,7 @@ func schema_k8sio_api_core_v1_HTTPHeader(ref common.ReferenceCallback) common.Op
 				Properties: map[string]spec.Schema{
 					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "The header field name",
+							Description: "The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",
@@ -65531,7 +65531,7 @@ func schema_k8sio_api_core_v1_SeccompProfile(ref common.ReferenceCallback) commo
 					},
 					"localhostProfile": {
 						SchemaProps: spec.SchemaProps{
-							Description: "localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is \"Localhost\".",
+							Description: "localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is \"Localhost\". Must NOT be set for any other type.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -66474,7 +66474,7 @@ func schema_k8sio_api_core_v1_ServiceSpec(ref common.ReferenceCallback) common.O
 					},
 					"loadBalancerIP": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.",
+							Description: "Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations. Using it is non-portable and it may not support dual-stack. Users are encouraged to use implementation-specific annotations when available.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -67784,7 +67784,7 @@ func schema_k8sio_api_core_v1_WindowsSecurityContextOptions(ref common.Reference
 					},
 					"hostProcess": {
 						SchemaProps: spec.SchemaProps{
-							Description: "HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.",
+							Description: "HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
@@ -67924,7 +67924,7 @@ func schema_k8sio_api_rbac_v1_ClusterRoleBinding(ref common.ReferenceCallback) c
 					},
 					"roleRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.",
+							Description: "RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.",
 							Default:     map[string]interface{}{},
 							Ref:         ref("k8s.io/api/rbac/v1.RoleRef"),
 						},
@@ -68223,7 +68223,7 @@ func schema_k8sio_api_rbac_v1_RoleBinding(ref common.ReferenceCallback) common.O
 					},
 					"roleRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.",
+							Description: "RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.",
 							Default:     map[string]interface{}{},
 							Ref:         ref("k8s.io/api/rbac/v1.RoleRef"),
 						},
@@ -69395,12 +69395,6 @@ func schema_pkg_apis_meta_v1_LabelSelectorRequirement(ref common.ReferenceCallba
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"key": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-patch-merge-key": "key",
-								"x-kubernetes-patch-strategy":  "merge",
-							},
-						},
 						SchemaProps: spec.SchemaProps{
 							Description: "key is the label key that the selector applies to.",
 							Default:     "",
