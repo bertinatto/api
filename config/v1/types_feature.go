@@ -172,7 +172,6 @@ var FeatureSets = map[FeatureSet]*FeatureGateEnabledDisabled{
 		with(insightsConfigAPI).
 		with(retroactiveDefaultStorageClass).
 		with(pdbUnhealthyPodEvictionPolicy).
-		with(dynamicResourceAllocation).
 		with(admissionWebhookMatchConditions).
 		with(awsSecurityTokenService).
 		with(azureWorkloadIdentity).
