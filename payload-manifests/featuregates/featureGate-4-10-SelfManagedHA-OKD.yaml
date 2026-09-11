@@ -119,6 +119,9 @@
                         "name": "DyanmicServiceEndpointIBMCloud"
                     },
                     {
+                        "name": "EgressIPNodeSelector"
+                    },
+                    {
                         "name": "EventedPLEG"
                     },
                     {

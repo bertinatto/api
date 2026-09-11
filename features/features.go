@@ -162,6 +162,14 @@ var (
 					enable(inDevPreviewNoUpgrade()).
 					mustRegister()
 
+	FeatureGateEgressIPNodeSelector = newFeatureGate("EgressIPNodeSelector").
+					reportProblemsToJiraComponent("Networking/ovn-kubernetes").
+					contactPerson("tssurya").
+					productScope(ocpSpecific).
+					enhancementPR("https://github.com/ovn-kubernetes/ovn-kubernetes/pull/6801").
+					enable(inDevPreviewNoUpgrade(), inTechPreviewNoUpgrade()).
+					mustRegister()
+
 	FeatureGateNoOverlayMode = newFeatureGate("NoOverlayMode").
 					reportProblemsToJiraComponent("Networking/ovn-kubernetes").
 					contactPerson("pliurh").

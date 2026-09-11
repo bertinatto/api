@@ -217,6 +217,9 @@
                         "name": "EVPN"
                     },
                     {
+                        "name": "EgressIPNodeSelector"
+                    },
+                    {
                         "name": "EtcdBackendQuota"
                     },
                     {
